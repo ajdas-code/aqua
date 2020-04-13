@@ -35,7 +35,7 @@ class User extends MongoModels {
     static create(username, password, email, callback) {
 
         const self = this;
-
+        
         Async.auto({
             passwordHash: this.generatePasswordHash.bind(this, password),
             newUser: ['passwordHash', function (results, done) {
@@ -182,6 +182,7 @@ User.schema = Joi.object({
     username: Joi.string().token().lowercase().required(),
     password: Joi.string(),
     email: Joi.string().email().lowercase().required(),
+
     roles: Joi.object({
         admin: Joi.object({
             id: Joi.string().required(),
